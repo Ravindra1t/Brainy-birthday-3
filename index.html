@@ -26,7 +26,7 @@
     justify-content: center;
     min-height: 100vh;
     overflow-x: hidden; 
-    overflow-y: auto; /* Changed to auto so the page can scroll if content is long */
+    overflow-y: auto; 
   }
   
   /* Container for the 3D Background */
@@ -51,7 +51,7 @@
     position: relative;
     z-index: 10;
     backdrop-filter: blur(10px);
-    margin: 40px 0 100px 0; /* Added bottom margin to prevent covering by mascot on mobile */
+    margin: 40px 0 100px 0; /* Bottom margin to prevent covering by mascot on mobile */
   }
   
   .step {
@@ -63,7 +63,7 @@
   }
   
   .mascot {
-    width: 80px; /* Reduced size */
+    width: 80px; 
     height: auto;
     margin-bottom: 15px;
     animation: float 4s ease-in-out infinite; 
@@ -88,6 +88,7 @@
     margin: 15px 0;
     border: 5px solid #FFCDD2;
   }
+  
   h1 {
     color: #D81B60;
     font-size: 1.5em; 
@@ -97,11 +98,14 @@
     justify-content: center;
     gap: 8px;
   }
+  
   p {
     font-size: 1.05em; 
     line-height: 1.5;
     margin-bottom: 25px;
   }
+  
+  /* Suspense Button Styling */
   button {
     background: linear-gradient(45deg, #E91E63, #FF4081);
     color: white;
@@ -115,10 +119,29 @@
     box-shadow: 0 4px 15px rgba(233, 30, 99, 0.4);
     width: 100%; 
     max-width: 250px;
+    
+    /* Hidden initially to build suspense */
+    opacity: 0;
+    pointer-events: none;
+    animation: fadeInButton 0.5s ease forwards;
+    animation-delay: 5s; /* Increased to 5 seconds delay for the clues */
   }
+
+  /* The first button appears a bit faster so they aren't stuck on the intro */
+  #step1 button {
+    animation-delay: 1s;
+  }
+  
   button:hover {
     transform: scale(1.05);
     box-shadow: 0 6px 20px rgba(233, 30, 99, 0.6);
+  }
+
+  @keyframes fadeInButton {
+    to { 
+      opacity: 1; 
+      pointer-events: auto; 
+    }
   }
 
   /* Scale up slightly for larger screens */
@@ -128,7 +151,7 @@
       margin: 40px 0; /* Reset margin for desktop */
     }
     .mascot {
-      width: 100px; /* Slightly larger on desktop, but still smaller than before */
+      width: 100px; 
     }
     h1 {
       font-size: 1.8em;
@@ -146,6 +169,7 @@
     from { opacity: 0; transform: translateY(15px) scale(0.95); }
     to { opacity: 1; transform: translateY(0) scale(1); }
   }
+  
   @keyframes float {
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-10px); }
@@ -247,7 +271,7 @@
   let mouseX = 0;
   let mouseY = 0;
 
-  // Add slight mouse interactivity (works best on desktop, safely ignored on mobile taps)
+  // Add slight mouse interactivity 
   document.addEventListener('mousemove', (event) => {
     mouseX = event.clientX / window.innerWidth - 0.5;
     mouseY = event.clientY / window.innerHeight - 0.5;
@@ -259,11 +283,11 @@
     requestAnimationFrame(animateThreeJS);
     const elapsedTime = clock.getElapsedTime();
 
-    // Slowed down the particle rotation significantly
+    // Rotate particles
     particlesMesh.rotation.y = elapsedTime * 0.02;
     particlesMesh.rotation.x = elapsedTime * 0.01;
 
-    // Slowed down the mouse reaction slightly
+    // Mouse reaction
     particlesMesh.position.x += (mouseX * 0.5 - particlesMesh.position.x) * 0.02;
     particlesMesh.position.y += (-mouseY * 0.5 - particlesMesh.position.y) * 0.02;
 
@@ -271,7 +295,7 @@
   }
   animateThreeJS();
 
-  // Handle window resize for Three.js
+  // Handle window resize
   window.addEventListener('resize', () => {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
