@@ -51,7 +51,7 @@
     position: relative;
     z-index: 10;
     backdrop-filter: blur(10px);
-    margin: 40px 0; /* Added margin to ensure spacing when scrolling */
+    margin: 40px 0 100px 0; /* Added bottom margin to prevent covering by mascot on mobile */
   }
   
   .step {
@@ -69,12 +69,13 @@
     animation: float 4s ease-in-out infinite; 
   }
 
-  /* Force mascot to bottom-left on mobile screens */
+  /* Force mascot to bottom-center on mobile screens with hovering */
   @media (max-width: 768px) {
     .mascot {
       position: fixed;
       bottom: 20px;
-      left: 20px;
+      left: 50%;
+      margin-left: -40px; /* Centers the 80px wide mascot */
       margin-bottom: 0;
       z-index: 50;
     }
@@ -124,6 +125,7 @@
   @media (min-width: 480px) {
     .card {
       padding: 35px;
+      margin: 40px 0; /* Reset margin for desktop */
     }
     .mascot {
       width: 100px; /* Slightly larger on desktop, but still smaller than before */
@@ -161,7 +163,7 @@
     <img src="buddy.png" alt="Buddy the Mascot" class="mascot" onerror="this.src='https://img.icons8.com/cute-clipart/128/null/mascot.png'">
     <h1>🎂 Happy Birthday, Brainy Girl! ✨</h1>
     <p>Remember me? I was there at your last birthday too! But this time, I'm guarding a little secret. Want to find your birthday surprise?</p>
-    <button onclick="nextStep(2)">letas search at the next place!</button>
+    <button onclick="nextStep(2)">lets start searching</button>
   </div>
 
   <!-- Step 2: Misdirection 1 -->
@@ -169,7 +171,7 @@
     <img src="buddy.png" alt="Buddy" class="mascot" onerror="this.src='https://img.icons8.com/cute-clipart/128/null/mascot.png'">
     <h1>Clue #1</h1>
     <p>Look under your pillow... ohhh wait... I didn't keep it there.</p>
-    <button onclick="nextStep(3)">letas search at the next place!</button>
+    <button onclick="nextStep(3)">let us search at the next place!</button>
   </div>
 
   <!-- Step 3: Misdirection 2 -->
@@ -177,7 +179,7 @@
     <img src="buddy.png" alt="Buddy" class="mascot" onerror="this.src='https://img.icons8.com/cute-clipart/128/null/mascot.png'">
     <h1>Clue #2</h1>
     <p>Look outside your door... it finally landed.<br><br>...nee moham not here.</p>
-    <button onclick="nextStep(4)">letas search at the next place!</button>
+    <button onclick="nextStep(4)">let us search at the next place!</button>
   </div>
 
   <!-- Step 4: Misdirection 3 -->
@@ -185,7 +187,7 @@
     <img src="buddy.png" alt="Buddy" class="mascot" onerror="this.src='https://img.icons8.com/cute-clipart/128/null/mascot.png'">
     <h1>Clue #3</h1>
     <p>It is under your laptop, Brainy Jiii.</p>
-    <button onclick="nextStep(5)">letas search at the next place!</button>
+    <button onclick="nextStep(5)">let us search at the next place!</button>
   </div>
 
   <!-- Step 5: Final Reveal -->
