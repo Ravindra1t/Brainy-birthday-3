@@ -51,7 +51,7 @@
     position: relative;
     z-index: 10;
     backdrop-filter: blur(10px);
-    margin: 40px 0 100px 0; /* Bottom margin to prevent covering by mascot on mobile */
+    margin: 40px 0; 
   }
   
   .step {
@@ -62,23 +62,15 @@
     display: block;
   }
   
+  /* Fixed Mascot Placement */
   .mascot {
+    position: fixed;
+    bottom: 20px;
+    left: 20px; /* Locks it to bottom-left forever */
     width: 80px; 
     height: auto;
-    margin-bottom: 15px;
+    z-index: 50;
     animation: float 4s ease-in-out infinite; 
-  }
-
-  /* Force mascot to bottom-center on mobile screens with hovering */
-  @media (max-width: 768px) {
-    .mascot {
-      position: fixed;
-      bottom: 20px;
-      left: 50%;
-      margin-left: -40px; /* Centers the 80px wide mascot */
-      margin-bottom: 0;
-      z-index: 50;
-    }
   }
 
   .bag-img {
@@ -150,7 +142,6 @@
   @media (min-width: 480px) {
     .card {
       padding: 35px;
-      margin: 40px 0; /* Reset margin for desktop */
     }
     .mascot {
       width: 100px; 
@@ -186,6 +177,7 @@
 <div class="card">
   <!-- Step 1: Intro -->
   <div id="step1" class="step active">
+    <!-- Moved Buddy outside the main card flow visually but kept him linked to steps -->
     <img src="buddy.png" alt="Buddy the Mascot" class="mascot" onerror="this.src='https://img.icons8.com/cute-clipart/128/null/mascot.png'">
     <h1>🎂 Happy Birthday, Brainy Girl! ✨</h1>
     <p>Remember me? I was there at your last birthday too! But this time, I'm guarding a little secret. Want to find your birthday surprise?</p>
@@ -246,11 +238,10 @@
 
   // Create floating magical particles
   const particlesGeometry = new THREE.BufferGeometry();
-  const particlesCount = 400; // Number of glowing dots
+  const particlesCount = 400; 
   const posArray = new Float32Array(particlesCount * 3);
 
   for(let i = 0; i < particlesCount * 3; i++) {
-    // Spread particles randomly in 3D space
     posArray[i] = (Math.random() - 0.5) * 15;
   }
 
@@ -258,7 +249,7 @@
 
   const particlesMaterial = new THREE.PointsMaterial({
     size: 0.08,
-    color: 0xffffff, // White glowing dots
+    color: 0xffffff, 
     transparent: true,
     opacity: 0.8,
     blending: THREE.AdditiveBlending
@@ -269,11 +260,9 @@
 
   camera.position.z = 4;
 
-  // Animation Loop for Three.js
   let mouseX = 0;
   let mouseY = 0;
 
-  // Add slight mouse interactivity 
   document.addEventListener('mousemove', (event) => {
     mouseX = event.clientX / window.innerWidth - 0.5;
     mouseY = event.clientY / window.innerHeight - 0.5;
@@ -285,11 +274,9 @@
     requestAnimationFrame(animateThreeJS);
     const elapsedTime = clock.getElapsedTime();
 
-    // Rotate particles
     particlesMesh.rotation.y = elapsedTime * 0.02;
     particlesMesh.rotation.x = elapsedTime * 0.01;
 
-    // Mouse reaction
     particlesMesh.position.x += (mouseX * 0.5 - particlesMesh.position.x) * 0.02;
     particlesMesh.position.y += (-mouseY * 0.5 - particlesMesh.position.y) * 0.02;
 
@@ -297,7 +284,6 @@
   }
   animateThreeJS();
 
-  // Handle window resize
   window.addEventListener('resize', () => {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
