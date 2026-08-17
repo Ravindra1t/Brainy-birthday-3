@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Happy Birthday, Brainy Girl!</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;700&display=swap" rel="stylesheet">
+<!-- Three.js Library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Fredoka', sans-serif;
+    /* Light pink transcending to darker pink */
+    background: linear-gradient(135deg, #FFF0F5 0%, #FFB6C1 40%, #E91E63 100%);
+    color: #444;
+    text-align: center;
+    margin: 0;
+    padding: 15px; /* Mobile-first padding */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    overflow: hidden; 
+  }
+  
+  /* Container for the 3D Background */
+  #three-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  .card {
+    background: rgba(255, 255, 255, 0.92);
+    border-radius: 20px;
+    padding: 25px 20px; /* Mobile-first tighter padding */
+    box-shadow: 0 15px 35px rgba(233, 30, 99, 0.3);
+    width: 95%; /* Mobile-first width */
+    max-width: 420px;
+    border: 2px solid #FFCDD2;
+    position: relative;
+    z-index: 10;
+    backdrop-filter: blur(10px);
+  }
+  
+  .step {
+    display: none;
+    animation: fadeInScale 1s ease; /* Slowed down from 0.6s */
+  }
+  .active {
+    display: block;
+  }
+  .mascot {
+    width: 120px; /* Slightly smaller for mobile */
+    height: auto;
+    margin-bottom: 15px;
+    animation: float 4s ease-in-out infinite; /* Slowed down from 2.5s */
+  }
+  .bag-img {
+    width: 100%;
+    max-width: 280px;
+    border-radius: 15px;
+    margin: 15px 0;
+    border: 5px solid #FFCDD2;
+  }
+  h1 {
+    color: #D81B60;
+    font-size: 1.5em; /* Mobile-first font size */
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  p {
+    font-size: 1.05em; /* Mobile-first font size */
+    line-height: 1.5;
+    margin-bottom: 25px;
+  }
+  button {
+    background: linear-gradient(45deg, #E91E63, #FF4081);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    font-size: 1.05em;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    font-weight: bold;
+    box-shadow: 0 4px 15px rgba(233, 30, 99, 0.4);
+    width: 100%; /* Make button full width on small screens for easy tapping */
+    max-width: 250px;
+  }
+  button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(233, 30, 99, 0.6);
+  }
+
+  /* Scale up slightly for larger screens */
+  @media (min-width: 480px) {
+    .card {
+      padding: 35px;
+    }
+    .mascot {
+      width: 140px;
+    }
+    h1 {
+      font-size: 1.8em;
+    }
+    p {
+      font-size: 1.15em;
+    }
+    button {
+      width: auto;
+      padding: 14px 28px;
+    }
+  }
+
+  @keyframes fadeInScale {
+    from { opacity: 0; transform: translateY(15px) scale(0.95); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+</style>
+</head>
+<body>
+
+<!-- 3D Background Canvas -->
+<div id="three-bg"></div>
+
+<div class="card">
+  <!-- Step 1: Intro -->
+  <div id="step1" class="step active">
+    <img src="buddy.png" alt="Buddy the Mascot" class="mascot" onerror="this.src='https://img.icons8.com/cute-clipart/128/null/mascot.png'">
+    <h1>🎂 Happy Birthday, Brainy Girl! ✨</h1>
+    <p>Remember me? I was there at your last birthday too! But this time, I'm guarding a little secret. Want to find your birthday surprise?</p>
+    <button onclick="nextStep(2)">Let's go!</button>
+  </div>
+
+  <!-- Step 2: Misdirection 1 -->
+  <div id="step2" class="step">
+    <img src="buddy.png" alt="Buddy" class="mascot" onerror="this.src='https://img.icons8.com/cute-clipart/128/null/mascot.png'">
+    <h1>Clue #1</h1>
+    <p>Look under your pillow... ohhh wait... I didn't keep it there.</p>
+    <button onclick="nextStep(3)">Next Clue</button>
+  </div>
+
+  <!-- Step 3: Misdirection 2 -->
+  <div id="step3" class="step">
+    <img src="buddy.png" alt="Buddy" class="mascot" onerror="this.src='https://img.icons8.com/cute-clipart/128/null/mascot.png'">
+    <h1>Clue #2</h1>
+    <p>Look outside your door... it finally landed.<br><br>...nee moham not here.</p>
+    <button onclick="nextStep(4)">Keep Trying</button>
+  </div>
+
+  <!-- Step 4: Misdirection 3 -->
+  <div id="step4" class="step">
+    <img src="buddy.png" alt="Buddy" class="mascot" onerror="this.src='https://img.icons8.com/cute-clipart/128/null/mascot.png'">
+    <h1>Clue #3</h1>
+    <p>It is under your laptop, Brainy Jiii.</p>
+    <button onclick="nextStep(5)">Show me the real thing!</button>
+  </div>
+
+  <!-- Step 5: Final Reveal -->
+  <div id="step5" class="step">
+    <h1>🎁 Found it! 🎉</h1>
+    <p>Here is a pic where you can find your gift...</p>
+    <img src="bag.jpg" alt="Your Bag" class="bag-img" onerror="this.src='https://img.icons8.com/cute-clipart/256/null/backpack.png'">
+    <p>happppyyyyy birthdayyy brainy garuuuuu....be smilinggg....be happpppyyyyy</p>
+  </div>
+</div>
+
+<script>
+  // --- UI LOGIC ---
+  function nextStep(stepNumber) {
+    document.querySelectorAll('.step').forEach(function(el) {
+      el.classList.remove('active');
+    });
+    document.getElementById('step' + stepNumber).classList.add('active');
+  }
+
+  // --- THREE.JS BACKGROUND ANIMATION ---
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+  
+  // Set alpha: true so our CSS pink gradient shows through
+  const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.setPixelRatio(window.devicePixelRatio);
+  document.getElementById('three-bg').appendChild(renderer.domElement);
+
+  // Create floating magical particles
+  const particlesGeometry = new THREE.BufferGeometry();
+  const particlesCount = 400; // Number of glowing dots
+  const posArray = new Float32Array(particlesCount * 3);
+
+  for(let i = 0; i < particlesCount * 3; i++) {
+    // Spread particles randomly in 3D space
+    posArray[i] = (Math.random() - 0.5) * 15;
+  }
+
+  particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+
+  const particlesMaterial = new THREE.PointsMaterial({
+    size: 0.08,
+    color: 0xffffff, // White glowing dots
+    transparent: true,
+    opacity: 0.8,
+    blending: THREE.AdditiveBlending
+  });
+
+  const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
+  scene.add(particlesMesh);
+
+  camera.position.z = 4;
+
+  // Animation Loop for Three.js
+  let mouseX = 0;
+  let mouseY = 0;
+
+  // Add slight mouse interactivity (works best on desktop, safely ignored on mobile taps)
+  document.addEventListener('mousemove', (event) => {
+    mouseX = event.clientX / window.innerWidth - 0.5;
+    mouseY = event.clientY / window.innerHeight - 0.5;
+  });
+
+  const clock = new THREE.Clock();
+
+  function animateThreeJS() {
+    requestAnimationFrame(animateThreeJS);
+    const elapsedTime = clock.getElapsedTime();
+
+    // Slowed down the particle rotation significantly
+    particlesMesh.rotation.y = elapsedTime * 0.02;
+    particlesMesh.rotation.x = elapsedTime * 0.01;
+
+    // Slowed down the mouse reaction slightly
+    particlesMesh.position.x += (mouseX * 0.5 - particlesMesh.position.x) * 0.02;
+    particlesMesh.position.y += (-mouseY * 0.5 - particlesMesh.position.y) * 0.02;
+
+    renderer.render(scene, camera);
+  }
+  animateThreeJS();
+
+  // Handle window resize for Three.js
+  window.addEventListener('resize', () => {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+  });
+</script>
+
+</body>
+</html>
