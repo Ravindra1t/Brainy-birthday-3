@@ -105,7 +105,14 @@
     margin-bottom: 25px;
   }
   
-  /* Suspense Button Styling */
+  /* Shared suspense animation for buttons and punchline text */
+  button, .delayed-reveal {
+    opacity: 0;
+    animation: delayedFadeIn 0.5s ease forwards;
+    animation-delay: 5s; /* 5 seconds delay for clues */
+  }
+
+  /* Specific styles just for the button */
   button {
     background: linear-gradient(45deg, #E91E63, #FF4081);
     color: white;
@@ -119,15 +126,10 @@
     box-shadow: 0 4px 15px rgba(233, 30, 99, 0.4);
     width: 100%; 
     max-width: 250px;
-    
-    /* Hidden initially to build suspense */
-    opacity: 0;
-    pointer-events: none;
-    animation: fadeInButton 0.5s ease forwards;
-    animation-delay: 5s; /* Increased to 5 seconds delay for the clues */
+    pointer-events: none; /* Prevents clicking before it appears */
   }
 
-  /* The first button appears a bit faster so they aren't stuck on the intro */
+  /* The first button appears a bit faster */
   #step1 button {
     animation-delay: 1s;
   }
@@ -137,7 +139,7 @@
     box-shadow: 0 6px 20px rgba(233, 30, 99, 0.6);
   }
 
-  @keyframes fadeInButton {
+  @keyframes delayedFadeIn {
     to { 
       opacity: 1; 
       pointer-events: auto; 
@@ -194,7 +196,7 @@
   <div id="step2" class="step">
     <img src="buddy.png" alt="Buddy" class="mascot" onerror="this.src='https://img.icons8.com/cute-clipart/128/null/mascot.png'">
     <h1>Clue #1</h1>
-    <p>Look under your pillow... ohhh wait... I didn't keep it there.</p>
+    <p>Look under your pillow... <br><br><span class="delayed-reveal">ohhh wait... I didn't keep it there.</span></p>
     <button onclick="nextStep(3)">let us search at the next place!</button>
   </div>
 
@@ -202,7 +204,7 @@
   <div id="step3" class="step">
     <img src="buddy.png" alt="Buddy" class="mascot" onerror="this.src='https://img.icons8.com/cute-clipart/128/null/mascot.png'">
     <h1>Clue #2</h1>
-    <p>Look outside your door... it finally landed.<br><br>...nee moham not here.</p>
+    <p>Look outside your door... it finally landed.<br><br><span class="delayed-reveal">...nee moham not here.</span></p>
     <button onclick="nextStep(4)">let us search at the next place!</button>
   </div>
 
