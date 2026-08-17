@@ -62,11 +62,11 @@
     display: block;
   }
   
-  /* Fixed Mascot Placement */
+  /* Fixed Mascot Placement - Lowered */
   .mascot {
     position: fixed;
-    bottom: 20px;
-    left: 20px; /* Locks it to bottom-left forever */
+    bottom: 5px; /* Lowered from 20px to keep him under the card */
+    left: 10px; /* Tucked slightly closer to the left edge */
     width: 80px; 
     height: auto;
     z-index: 50;
@@ -177,7 +177,7 @@
 <div class="card">
   <!-- Step 1: Intro -->
   <div id="step1" class="step active">
-    <!-- Moved Buddy outside the main card flow visually but kept him linked to steps -->
+    <!-- Buddy moved to fixed bottom-left corner -->
     <img src="buddy.png" alt="Buddy the Mascot" class="mascot" onerror="this.src='https://img.icons8.com/cute-clipart/128/null/mascot.png'">
     <h1>🎂 Happy Birthday, Brainy Girl! ✨</h1>
     <p>Remember me? I was there at your last birthday too! But this time, I'm guarding a little secret. Want to find your birthday surprise?</p>
